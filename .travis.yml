@@ -1,0 +1,24 @@
+language: php
+
+php:
+  - 5.4
+  - 5.5
+  - hhvm
+
+before_script:
+  - ./ci/start-ci.sh $ORIENTDB_VERSION
+  - php -r "readfile('https://getcomposer.org/installer');" | php
+  - php composer.phar install --prefer-source
+
+script:
+ - mkdir -p build/logs
+ - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+ - php ./vendor/bin/coveralls -v
+
+env:
+  - ORIENTDB_VERSION=2.0.8
+
+matrix:
+  allow_failures:

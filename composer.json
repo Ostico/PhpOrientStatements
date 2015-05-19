@@ -1,0 +1,44 @@
+{
+    "name": "ostico/phporientstatements",
+    "description": "Prepared statements built on PhpOrient.",
+    "version": "v1.1.8",
+    "keywords": [
+        "phporient",
+        "orientdb",
+        "orient db",
+        "orientechnologies"
+    ],
+    "homepage": "https://github.com/Ostico/PhpOrientStatements",
+    "type": "library",
+    "license": "Apache License v2.0",
+    "authors": [
+        {
+            "name": "Domenico Lupinetti",
+            "email": "ostico@gmail.com",
+            "homepage": "https://www.linkedin.com/in/domenicolupinetti",
+            "role": "Owner, Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "psr/log": "~1.0",
+        "ostico/phporient": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "https://github.com/Ostico/phpdoc-md.git"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "4.4",
+        "monolog/monolog": "1.11.*",
+        "phpdocumentor/template-zend": "1.3.0",
+        "phpdocumentor/phpdocumentor": "dev-master",
+        "Ostico/phpdoc-md": "dev-master",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {"PhpOrientStatements\\": "src/PhpOrientStatements"}
+    }
+}
