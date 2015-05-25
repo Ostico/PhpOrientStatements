@@ -1,6 +1,6 @@
 # PhpOrientStatements
 
-An attempt to create Prepared Statements to be used with the phporient library
+An attempt to create Prepared Statements to be used with the PhpOrient library
 
 ## Installation
 
@@ -12,7 +12,7 @@ then enter the directory `PhpOrientStatements` and run
 
     php composer.phar install
 
-to install the dependecies of the project
+to install the dependencies of the project
 
 ## Usage
 
@@ -25,7 +25,12 @@ $client = new PhpOrient( 'localhost', 2424 );
 $client->username = 'root';
 $client->password = 'root_pass';
 
-$preparedClient = new PreparedClient($client);
+//The prepare method will be put inside PhpOrient so, for now we make it a simple Factory
+//TODO: remove and place inside PhpOrient Client itself
+//Ex: 
+//$preparedStatement = $client->prepare( 'select from :name' );
+//
+$preparedClient = new StatementFactory($client);  
 ```
 
 To create a new prepared statement
@@ -41,7 +46,7 @@ Then, to bind a value to the parameter
 $preparedStatement->bindValue('name', 'John');
 ```
 
-Alternatively, you can bind a variable to the parameter. It will be passed by reference and eveluated only when the statement is executed
+Alternatively, you can bind a variable to the parameter. It will be passed by reference and evaluated only when the statement is executed
 
 ```php
 $preparedStatement->bindParam('name', $name);
@@ -49,8 +54,14 @@ $preparedStatement->bindParam('name', $name);
 $name = 'John';
 ```
 
-To execute the prepared statement
+To execute the prepared statement ( returns boolean )
+and fetch the results:
 
 ```php
-$preparedStatement->execute();
+if ( $preparedStatement->execute() ) {
+    /**
+     * @var $resultSet \PhpOrient\Protocols\Binary\Data\Record[]|[]
+     */
+    $resultSet = $preparedStatement->fetchAll();
+}
 ```

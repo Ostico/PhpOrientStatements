@@ -7,16 +7,23 @@ namespace PhpOrientStatements;
  *
  * @package PhpOrientStatements
  */
-class Statement
-{
-    // TODO: adjust the values so they are the same as in PDO
-    const PARAM_STR = 0;
-    const PARAM_INT = 1;
-    const PARAM_BOOL = 2;
-    const PARAM_NULL = 3;
+class Statement {
 
-    public function __construct($statement)
-    {
+    const PARAM_NULL = 0;
+    const PARAM_INT  = 1;
+    const PARAM_STR  = 2;
+    const PARAM_LOB  = 3;
+    const PARAM_STMT = 4; //Represents a recordset type. We could use to map Orient document objects
+    const PARAM_BOOL = 5;
+
+    /**
+     * Allows completely customize the way data is treated on the fly
+     * (only valid inside PDOStatement::fetchAll()).
+     * @see: http://php.net/manual/en/pdo.constants.php
+     */
+    const FETCH_FUNC = 10;
+
+    public function __construct( $statement ) {
         $this->statement = $statement;
     }
 
@@ -26,15 +33,14 @@ class Statement
      * @param mixed
      * @param mixed
      * @param int
+     *
      * @return bool
      */
-    public function bindValue($parameter, $value, $dataType = self::PARAM_STR)
-    {
+    public function bindValue( $parameter, $value, $dataType = self::PARAM_STR ) {
 
     }
 
-    public function bindParam($parameter, &$variable, $dataType = self::PARAM_STR)
-    {
+    public function bindParam( $parameter, &$variable, $dataType = self::PARAM_STR ) {
 
     }
 
@@ -44,8 +50,7 @@ class Statement
      * @var array
      * @return bool
      */
-    public function execute($parameters)
-    {
+    public function execute( $parameters ) {
 
     }
 }
