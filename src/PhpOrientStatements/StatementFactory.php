@@ -35,7 +35,6 @@ class StatementFactory {
 
     //every method non defined by this class, we pass it to the normal client
     public function __call( $method, $args ) {
-        return $this->client->$method( $args );
-//        return call_user_func_array( [ $this->client, $method ], $args );
+        return call_user_func_array( [ $this->client, $method ], $args );
     }
 }
