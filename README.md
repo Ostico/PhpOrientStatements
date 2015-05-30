@@ -27,35 +27,70 @@ $client->password = 'root_pass';
 
 //The prepare method will be put inside PhpOrient so, for now we make it a simple Factory
 //TODO: remove and place inside PhpOrient Client itself
-//Ex: 
+//Ex:
 //$preparedStatement = $client->prepare( 'select from :name' );
 //
-$preparedClient = new StatementFactory($client);  
+$preparedClient = new StatementFactory( $client );
 ```
 
-To create a new prepared statement
+To create a new prepared statement, we can use both question marks or the name placeholders
 
 ```php
-$statement = 'select expand(field) from Class where name = :name';
-$preparedStatement = $preparedClient->prepare($statement);
+$questionSql = 'select from Users where name = ? and age > ?';
+$questionStatement = $preparedClient->prepare( $questionSql );
+
+$nameSql = 'select from Users where name = :name and age > :age';
+$nameStatement = $preparedClient->prepare( $nameSql );
 ```
 
 Then, to bind a value to the parameter
 
 ```php
-$preparedStatement->bindValue('name', 'John');
+$questionStatement->bindValue( 1, 'John' );
+$questionStatement->bindValue( 2, 18, Statement::PARAM_INT );
 ```
 
-Alternatively, you can bind a variable to the parameter. It will be passed by reference and evaluated only when the statement is executed
+or, with named placeholders
 
 ```php
-$preparedStatement->bindParam('name', $name);
+$nameStatement->bindValue( 'name', 'John', Statement::PARAM_STR );
+$nameStatement->bindValue( 'age', 18, Statement::PARAM_INT );
+```
+As a third optional parameter you can pass to `bindValue` the type of the value that need to be bounded, using the `Statement::PARAM_*` constants.
+
+Alternatively, you can bind a variable to the parameter. It will be passed by reference and evaluated only when the statement is executed. As a third option parameter you can specity the type of the variable that you are binding.
+
+```php
+$questionStatement->bindParam( 1, $name, Statement::PARAM_STR );
+$questionStatement->bindParam( 2, $age, Statement::PARAM_INT );
+
+$nameStatement->bindParam( 'name', $name );
+$nameStatement->bindParam( 'age', $age, Statement::PARAM_INT );
 
 $name = 'John';
+$age = 18;
 ```
 
-To execute the prepared statement ( returns boolean )
-and fetch the results:
+To execute the prepared statement you could use
+
+```php
+$nameStatement->execute()
+```
+
+It returns a boolean that indicated whether the query executed without errors.
+
+If you did not binded all the question mark or named placeholders in your statement, you can do it we you execute the statement passing an associative array as an input to the `execute` method
+
+```php
+$statement->execute([
+    'name' => 'John',
+    'age' => 18
+]);
+```
+
+In this case every binded value will be treated as a `Statement::PARAM_STR`.
+
+Eventually, to fetch the results:
 
 ```php
 if ( $preparedStatement->execute() ) {
