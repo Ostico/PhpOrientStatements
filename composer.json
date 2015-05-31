@@ -1,7 +1,7 @@
 {
     "name": "ostico/phporientstatements",
     "description": "Prepared statements built on PhpOrient.",
-    "version": "v1.1.8",
+    "version": "v0.0.1",
     "keywords": [
         "phporient",
         "orientdb",
