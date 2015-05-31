@@ -1,5 +1,7 @@
 # PhpOrientStatements
 
+> This project is a META-Project using the RDD (Readme Driven Development) process.
+
 An attempt to create Prepared Statements to be used with the PhpOrient library
 
 ## Installation
