@@ -35,6 +35,8 @@ $client->password = 'root_pass';
 $preparedClient = new StatementFactory( $client );
 ```
 
+### Create a prepared statement
+
 To create a new prepared statement, we can use both question marks or the name placeholders
 
 ```php
@@ -44,6 +46,8 @@ $questionStatement = $preparedClient->prepare( $questionSql );
 $nameSql = 'select from Users where name = :name and age > :age';
 $nameStatement = $preparedClient->prepare( $nameSql );
 ```
+
+Bind values and parameters
 
 Then, to bind a value to the parameter
 
@@ -73,6 +77,8 @@ $name = 'John';
 $age = 18;
 ```
 
+### Execute prepared statements
+
 To execute the prepared statement you could use
 
 ```php
@@ -92,7 +98,26 @@ $statement->execute([
 
 In this case every binded value will be treated as a `Statement::PARAM_STR`.
 
-Eventually, to fetch the results:
+### Fetch results
+
+Eventually, to fetch the results, we have various options.
+
+The method `fetchColumn` allows us to retrieve the value of a column from the next row of a result set. It returns `false` if there are no more rows.
+
+```php
+if ( $preparedStatement->execute() ) {
+    // returns the value of the first column of the next row in the result set
+    $value = $statement->fetchColumn(0);
+}
+```
+
+Notice than `fetchColumn` should not be used to retrieve boolean columns, as it is impossible to distinguish a value of `false` from there being no more rows to retrieve. Use `fetch` instead.
+
+The method `fetch` fetches the next row from a result set.
+
+
+
+The method `fetchAll` returns an array containing all the rows of a result set
 
 ```php
 if ( $preparedStatement->execute() ) {
