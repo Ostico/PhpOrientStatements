@@ -115,7 +115,22 @@ Notice than `fetchColumn` should not be used to retrieve boolean columns, as it 
 
 The method `fetch` fetches the next row from a result set.
 
+```php
+if ( $preparedStatement->execute() ) {
+    /**
+     * @var $row \PhpOrient\Protocols\Binary\Data\Record
+     */
+    while ($row = $preparedStatement->fetch()) {
+        ...
+    }
+}
+```
 
+As an optional first argument `fetch` can receive a parameter which determines how the result will be returned to the user.
+
+The supported options are:
+- `Statement::FETCH_ASSOC` (default): returns a `\PhpOrient\Protocols\Binary\Data\Record` with fields indexed by property name
+- `Statement::FETCH_NUM`: returns a `\PhpOrient\Protocols\Binary\Data\Record` with fields indexed by numbers, starting at column 0
 
 The method `fetchAll` returns an array containing all the rows of a result set
 
@@ -127,3 +142,5 @@ if ( $preparedStatement->execute() ) {
     $resultSet = $preparedStatement->fetchAll();
 }
 ```
+
+`fetchAll` can receive the `fetch_mode` as first argument like `fetch` does.
