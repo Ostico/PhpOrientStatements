@@ -106,7 +106,11 @@ The method `fetchColumn` allows us to retrieve the value of a column from the ne
 
 ```php
 if ( $preparedStatement->execute() ) {
-    // returns the value of the first column of the next row in the result set
+    /**
+     * returns the value of the first column of the next row in the result set
+     
+     * @var $value mixed
+     */
     $value = $statement->fetchColumn(0);
 }
 ```
@@ -118,7 +122,7 @@ The method `fetch` fetches the next row from a result set.
 ```php
 if ( $preparedStatement->execute() ) {
     /**
-     * @var $row \PhpOrient\Protocols\Binary\Data\Record
+     * @var $row \PhpOrient\Protocols\Binary\Data\Record|stdClass[]|[]
      */
     while ($row = $preparedStatement->fetch()) {
         ...
@@ -137,7 +141,7 @@ The method `fetchAll` returns an array containing all the rows of a result set
 ```php
 if ( $preparedStatement->execute() ) {
     /**
-     * @var $resultSet \PhpOrient\Protocols\Binary\Data\Record[]|[]
+     * @var $resultSet \PhpOrient\Protocols\Binary\Data\Record[]|stdClass[]|[]
      */
     $resultSet = $preparedStatement->fetchAll();
 }
