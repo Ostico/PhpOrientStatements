@@ -122,7 +122,7 @@ The method `fetch` fetches the next row from a result set.
 ```php
 if ( $preparedStatement->execute() ) {
     /**
-     * @var $row \PhpOrient\Protocols\Binary\Data\Record|stdClass[]|[]
+     * @var $row \PhpOrient\Protocols\Binary\Data\Record|stdClass|Array
      */
     while ($row = $preparedStatement->fetch()) {
         ...
