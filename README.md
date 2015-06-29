@@ -10,11 +10,19 @@ To install the most recent version of the library just type
 
     git clone git@github.com:Ostico/PhpOrientStatements.git
 
-then enter the directory `PhpOrientStatements` and run
+then, if you don't have installed it globally, install locally composer
+
+    curl -sS https://getcomposer.org/installer | php
+
+and eventually enter the directory `PhpOrientStatements` and run
 
     php composer.phar install
 
-to install the dependencies of the project
+to install the dependencies of the project.
+
+To add this library as a dependency of your project, just run
+
+    `php composer.phar require ostico\ostico/phporientstatements`
 
 ## Usage
 
