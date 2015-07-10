@@ -22,7 +22,8 @@
     "require": {
         "php": ">=5.4.0",
         "psr/log": "~1.0",
-        "ostico/phporient": "dev-master"
+        "ostico/phporient": "dev-master",
+        "mockery/mockery": "^0.9.4"
     },
     "repositories": [
         {
