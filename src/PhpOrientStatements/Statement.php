@@ -2,6 +2,8 @@
 
 namespace PhpOrientStatements;
 
+use PhpOrient\PhpOrient;
+
 /**
  * class Statement
  *
@@ -23,7 +25,18 @@ class Statement {
      */
     const FETCH_FUNC = 10;
 
-    public function __construct( $statement ) {
+    /**
+     * @var PhpOrient
+     */
+    private $client;
+
+    /**
+     * @var string
+     */
+    private $statement;
+
+    public function __construct( $client, $statement ) {
+        $this->client = $client;
         $this->statement = $statement;
     }
 
@@ -50,7 +63,7 @@ class Statement {
      * @var array
      * @return bool
      */
-    public function execute( $parameters ) {
-
+    public function execute( array $parameters = [] ) {
+        $this->client->query($this->statement);
     }
 }

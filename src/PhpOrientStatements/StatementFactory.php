@@ -28,7 +28,7 @@ class StatementFactory {
      * @return Statement
      */
     public function prepare( $statement ) {
-        $preparedStatement = new Statement( $statement );
+        $preparedStatement = new Statement( $this->client, $statement );
 
         return $preparedStatement;
     }
